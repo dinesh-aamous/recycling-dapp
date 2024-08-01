@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recycling DApp</title>
+    <link rel="shortcut icon" href="../Creto.png" type="image/x-icon">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>
+    <style>
+        #recycleForm {
+            display: none;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="mt-5">Recycling Incentive DApp</h1>
+        <button id="connectButton" class="btn btn-primary mt-3">Connect Wallet</button>
+        <div id="walletAddress" class="mt-3"></div>
+        <div id="recycleForm">
+            <h3 class="mt-4">Recycle Items</h3>
+            <button id="addPlastic" class="btn btn-secondary mt-2" onclick="startDetection()">Add Plastic</button>
+            <button id="addMetal" class="btn btn-secondary mt-2">Add Metal</button>
+            <button id="addOthers" class="btn btn-secondary mt-2">Add Others</button>
+            <div class="mt-3">
+                <strong>Plastic:</strong> <span id="plasticCount">0</span>
+                <strong>Metal:</strong> <span id="metalCount">0</span>
+                <strong>Others:</strong> <span id="othersCount">0</span>
+            </div>
+            <button id="submitButton" class="btn btn-success mt-3">Submit</button>
+        </div>
+    </div>
+    <h1>Object Detection App</h1>
+    <img id="video" src="{{ url_for('video_feed') }}" width="640" height="480" alt="Video Stream">
+    <div class="button-container">
+        <button onclick="startDetection()">Start Detection</button>
+        <button onclick="stopDetection()">Stop Detection</button>
+    </div>
+
+    <script>
+        function startDetection() {
+            fetch('/start_detection', { method: 'POST' })
+                .then(response => response.text())
+                .then(data => console.log(data))
+                .catch(error => console.error(error));
+        }
+
+        function stopDetection() {
+            fetch('/stop_detection', { method: 'POST' })
+                .then(response => response.text())
+                .then(data => console.log(data))
+                .catch(error => console.error(error));
+        }
+    </script>
+
+    <script src="../static/app.js"></script>
+</body>
+</html>
